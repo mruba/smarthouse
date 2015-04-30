@@ -12,7 +12,7 @@ try:
 except:
   raise Exception('Sorry, Failed reading alarm.config file.')
 
-try: 
+try:
     coinbase_api = urllib.urlopen('https://coinbase.com/api/v1/prices/buy')
     response = coinbase_api.read()
     response_dictionary = json.loads(response)
@@ -24,7 +24,7 @@ try:
     if decimal_price > 0:
       btc_price += ' and ' + bsn.n2w(int(decimal_price)) + ' cents'
 
-    btc = 'The value of 1 bitcoin is: ' + btc_price + '.  '
+    btc = 'El valor de 1 bitcoin es: ' + btc_price + '.  '
 except Exception:
     btc = 'Failed to connect to coinbase.  '
 

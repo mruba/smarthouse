@@ -50,27 +50,27 @@ try:
 
 
     if conditions != forecast_conditions:
-        conditions = conditions + ' becoming ' + forecast_conditions 
-    weather_yahoo = 'Weather for today is ' + str(conditions) + ' currently ' + str(current) + ' degrees with a low of ' + str(current_low) + ' and a high of ' + str(current_high) + '.  '
+        conditions = conditions + ' becoming ' + forecast_conditions
+    weather_yahoo = 'El clima para hoy es ' + str(conditions) + ' actualmente ' + str(current) + ' grados, la temperatura más baja de ' + str(current_low) + ' y la más alta de ' + str(current_high) + '.  '
 
 # Wind uses the Beaufort scale
     if Config.get('weather_yahoo','metric') == str(1) and Config.get('weather_yahoo','wind') == str(1):
         if wind < 1:
-            gust = 'It is calm'
+            gust = 'Esta calmado'
         if wind > 1:
-            gust = 'With Light Air'
+            gust = 'Con ligero aire'
         if wind > 5:
-            gust = 'With a light breeze'
+            gust = 'con ligero viento'
         if wind > 12:
-            gust = 'With a gentle breeze'
+            gust = 'con una brisa gentil'
         if wind > 20:
-            gust = 'With a moderate breeze'
+            gust = 'con brisa moderada'
         if wind > 29:
-            gust = 'With a fresh breeze'
+            gust = 'con una fresca brisa'
         if wind > 39:
-            gust = 'With a strong breeze'
+            gust = 'con una fuerte brisa'
         if wind > 50:
-            gust = 'With High winds at ' + wind + 'kilometres per hour'
+            gust = 'con vientos fuertes de ' + wind + 'kilometros por hora'
         if wind > 62:
             gust = 'With Gale force winds at ' + wind + 'kilometres per hour'
         if wind > 75:

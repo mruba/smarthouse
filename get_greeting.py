@@ -3,6 +3,10 @@
 import time
 import better_spoken_numbers as bsn
 import ConfigParser
+import locale
+
+#Spanish version
+locale.setlocale(locale.LC_ALL, 'es_ES.utf8')
 
 Config=ConfigParser.ConfigParser()
 try:
@@ -12,25 +16,25 @@ except:
 
 day_of_month=str(bsn.d2w(int(time.strftime("%d"))))
 
-now = time.strftime("%A %B ") + day_of_month + ',' + time.strftime(" %I %M %p")
-# print now
+now = time.strftime("%A ") + day_of_month +' de '+time.strftime("%B") + ', y son las' + time.strftime(" %I %M %p")
+# print now es_ES.utf8
 
 
 if int(time.strftime("%H")) < 12:
-  period = 'morning'
+  period = 'dias'
 if int(time.strftime("%H")) >= 12:
-  period = 'afternoon'
+  period = 'tardes'
 if int(time.strftime("%H")) >= 17:
-  period = 'evening'
+  period = 'noches'
 
 #print time.strftime("%H")
 #print period
 
 # reads out good morning + my name
-gmt = 'Good ' + period + ', '
+gmt = 'Buenos ' + period + ', '
 
-# reads date and time 
-day = ' it\'s ' + now + '.  '
+# reads date and time
+day = ' Hoy es ' + now + '.  '
 
 greeting = gmt + Config.get('greeting','name') + day
 

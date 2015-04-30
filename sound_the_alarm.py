@@ -4,6 +4,7 @@ import ConfigParser
 import subprocess
 import time
 import textwrap
+import GTTS
 
 
 Config=ConfigParser.ConfigParser()
@@ -50,24 +51,27 @@ if Config.get('main','readaloud') == str(1):
 
 
     # Send shorts to Google and return mp3s
+    #try:
+      #for sentence in shorts:
+        #sendthis = sentence.join(['"http://translate.google.com/translate_tts?tl=es&q=', '" -O /mnt/ram/'])
+        #print(head + sendthis + str(count).zfill(2) + str(tail))
+        #print subprocess.call (head + sendthis + str(count).zfill(2) + str(tail), shell=True)
+        #count = count + 1
     try:
-      for sentence in shorts:
-        sendthis = sentence.join(['"http://translate.google.com/translate_tts?tl=en&q=', '" -O /mnt/ram/'])
-        print(head + sendthis + str(count).zfill(2) + str(tail))
-        print subprocess.call (head + sendthis + str(count).zfill(2) + str(tail), shell=True)
-        count = count + 1
+      #audio_extract(input_text='tunnel snakes rule apparently', args = {'language':'en','output':'outputto.mp3'})
+      print subprocess.call ('sudo python GTTS/GoogleTTS.py -l es -f newsfeed.log -o /mnt/ram/news.mp3 ', shell=True)
 
-      # turn on the light 
+      # turn on the light
       if Config.get('main','light') == str(1):
-        print subprocess.call ('python lighton_1.py', shell=True)
+        print subprocess.call ('python lighton_1.py 32', shell=True)
 
       # Play the mp3s returned
-      print subprocess.call ('mpg123 -g 100 -h 10 -d 11 /mnt/ram/*.mp3', shell=True)
+      print subprocess.call ('mpg123 -g 100 -h 10 -d 11 /mnt/ram/news.mp3', shell=True)
 
     # festival is now called in case of error reaching Google
     except subprocess.CalledProcessError:
       print subprocess.call("echo " + wad + " | festival --tts ", shell=True)
-  
+
     # Cleanup any mp3 files created in this directory.
     print 'cleaning up now'
     print subprocess.call ('rm /mnt/ram/*.mp3', shell=True)
@@ -77,7 +81,9 @@ else:
   print wad
 
 if Config.get('main','music') == str(1):
-  print subprocess.call ('find '+ Config.get('main','musicfldr') + ' -name \'*.mp3\' | sort --random-sort| mpg123 -@ - -l 1 -g 60', shell=True)
+    #print subprocess.call ('python play_a_song.py', shell=True)
+    print subprocess.call ('python lighton_1.py 64', shell=True)
+  #print subprocess.call ('find '+ Config.get('main','musicfldr') + ' -name \'*.mp3\' | sort --random-sort| mpg123 -@ - -l 1 -g 60', shell=True)
 
 if Config.get('main','light') == str(1):
   time.sleep(int(Config.get('main','lightdelay')));
